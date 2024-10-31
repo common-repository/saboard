@@ -1,0 +1,18 @@
+Order deny,allow 
+deny from all 
+
+<FilesMatch "(woff|ttf|svg)$">
+	Allow from all
+</FilesMatch>
+
+<FilesMatch "(css|js)$">
+	Allow from all
+</FilesMatch>
+
+<FilesMatch "(png|gif|jpg|bmp)$">
+	Allow from all
+</FilesMatch>
+
+<FilesMatch "(downloadView.php)$">
+	Allow from all
+</FilesMatch>

@@ -1,0 +1,41 @@
+@charset "utf-8";
+
+.icon32 {
+	display: inline-block;
+	background: url(../images/gemicon_iconpack32.png) no-repeat;
+	width: 37px;
+	height: 37px;
+	vertical-align: middle;
+}
+
+.icon32-1 {
+	background-position: 0 -434px;
+}
+
+.sa_message {
+	padding: 0 0.6em;
+	background-color: #ffffe0;
+	border-color: #e6db55;
+	margin: 5px 0 15px 0;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+	border-width: 1px;
+	border-style: solid;
+}
+
+.sa_message p {
+	margin: 0.5em 0;
+	padding: 2px;
+}
+
+.session_message {
+    border: 1px solid #e6db55;
+    background: #ffffe0;
+	border-color: #e6db55;
+    margin-bottom: 20px;
+    padding: 10px;
+    overflow: hidden;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+	color:#333;
+}

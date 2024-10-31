@@ -1,0 +1,81 @@
+.sa_board .board_reply_box{
+	margin:0;
+	font-size:12px;
+}
+.sa_board .board_reply_box h4{
+	font-size:13px !important;
+}
+.sa_board .board_reply_box .reply_header {
+	overflow: hidden;
+	margin-bottom:8px;
+}
+.sa_board .board_reply_box .reply_header span{
+	display:block;
+}
+.sa_board .board_reply_box .reply_header span.reply_tlt{
+	width:65%;
+	float: left;
+}
+
+.sa_board .board_reply_box .reply_header span.reply_user{
+	width:35%;
+	text-align:right;
+	float:right;
+}
+.sa_board .board_reply_box ul{
+	margin-left:0;
+}
+.sa_board .board_reply_box .reply_wrap{
+	padding:10px 15px;
+	border:1px solid #dedede;
+	margin:10px 0;
+	background:#fff;
+}
+
+.sa_board .board_reply_box .btns{
+	margin: 2px 0;
+}
+
+.sa_board .board_reply_box ul {
+	padding-bottom:0;
+	margin-bottom:0px;
+}
+
+.sa_board .board_reply_box ul ul{
+	padding-bottom:13px;
+	margin-bottom:20px;
+}
+
+.sa_board .board_reply_box ul ul ul{
+	padding-bottom:0;
+	margin-bottom:0;
+}
+
+.sa_board .board_reply_box .board_reply0{
+	margin-bottom:0;
+	padding-bottom:0;
+}
+
+.sa_board .board_reply_box ul li{
+	margin-left:0;
+}
+.sa_board .board_reply_box ul li li{
+	padding-bottom:2px;
+}
+
+.sa_board .board_reply_box ul li h6,.sa_board .board_reply_box ul li p{
+	line-height:20px;	
+	margin:0;
+}
+.sa_board .board_reply_box ul ul li{
+	padding-left:40px;
+	background:url(images/ic_reply.png) left top no-repeat;
+}
+
+#boardReplyPasswordDomain{
+	font-size:12px;
+}
+
+#boardReplyPasswordDomain dt,#boardReplyPasswordDomain dd{
+	margin:5px 0;
+}

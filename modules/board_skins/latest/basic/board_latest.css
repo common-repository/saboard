@@ -1,0 +1,32 @@
+.saboard_latest {
+	line-height:20px;
+	padding:10px;
+	border:1px solid #dedede;
+	border-radius:4px;
+}
+.saboard_latest ul {
+	margin:0;
+}
+
+.saboard_latest ul li{
+	list-style:none;
+	margin-left:0;
+}
+.saboard_latest h4{
+	margin:0;
+}
+.saboard_latest ul li h5{
+	margin:4px 0;
+}
+
+.saboard_latest ul li a{
+	text-decoration:none;
+}
+
+.saboard_latest ul li p{
+	margin-bottom:5px;
+}
+
+.saboard_latest ul li:last-child p,.saboard_latest ul li:last-child h5{
+	margin-bottom:0;
+}

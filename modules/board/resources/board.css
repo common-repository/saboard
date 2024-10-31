@@ -1,0 +1,37 @@
+.sa_board {
+	-ms-filter: 'progid:DXImageTransform.Microsoft.Alpha(Opacity=0)';
+	filter: alpha(opacity = 0);
+	-moz-opacity: 0;
+	-khtml-opacity: 0;
+	opacity: 0;
+	
+}
+
+.sa_board table {
+	border-collapse: collapse;
+	width:100%;
+}
+
+.sa_board .error,#boardReplyDomain .error {
+	margin-left: 5px;
+	font-weight: bold;
+	color: #dd6161;
+}
+
+.sa_board section table {
+	border: none;
+}
+
+.sa_board section table td,.sa_board section table th {
+	padding: 0;
+	border: none;
+	text-align: center;
+}
+
+.sa_board a {
+	text-decoration: none;
+}
+
+.sa_board input {
+	margin: 0;
+}

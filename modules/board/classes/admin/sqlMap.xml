@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8" ?>    
+<!DOCTYPE sqlMap      
+	PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="saboardadmin">
+	<insert id="insertBoardTable">
+		INSERT INTO sa_board_tables(
+			board_table_id,
+			board_table_nm,
+			board_table_desc,
+			board_table_theme,
+			board_table_write_role,
+			board_table_read_role,
+			board_table_list_cnt,
+			board_table_file_cnt,
+			board_table_theme_pagination,
+			board_table_file_max_size,
+			board_table_theme_reply,
+			board_table_title_cut,
+			board_table_reply_useyn,
+			board_table_secret_useyn,
+			board_table_comment_useyn,
+			board_table_theme_search,
+			board_table_search_useyn,
+			board_table_default_content,
+			board_table_seo_useyn,
+			board_table_show_columns,
+			board_group_index,
+			board_table_user_email_useyn,
+			board_table_user_phone_useyn
+		)
+		VALUES
+			(
+				#board_table_id#,
+				#board_table_nm#,
+				#board_table_desc#,
+				#board_table_theme#,
+				#board_table_write_role#,
+				#board_table_read_role#,
+				#board_table_list_cnt#,
+				#board_table_file_cnt#,
+				#board_table_theme_pagination#,
+				#board_table_file_max_size#,
+				#board_table_theme_reply#,
+				#board_table_title_cut#,
+				#board_table_reply_useyn#,
+				#board_table_secret_useyn#,
+				#board_table_comment_useyn#,
+				#board_table_theme_search#,
+				#board_table_search_useyn#,
+				#board_table_default_content#,
+				#board_table_seo_useyn#,
+				#board_table_show_columns#,
+				#board_group_index#,
+				#board_table_user_email_useyn#,
+				#board_table_user_phone_useyn#
+			)
+	</insert>
+	
+	<update id="updateBoardTable">
+		UPDATE sa_board_tables
+		SET board_table_id = #board_table_id#,
+		 board_table_nm = #board_table_nm#,
+		 board_table_desc = #board_table_desc#,
+		 board_table_theme = #board_table_theme#,
+		 board_table_write_role = #board_table_write_role#,
+		 board_table_read_role = #board_table_read_role#,
+		 board_table_list_cnt = #board_table_list_cnt#,
+		 board_table_file_cnt = #board_table_file_cnt#,
+		 board_table_theme_pagination = #board_table_theme_pagination#,
+		 board_table_file_max_size = #board_table_file_max_size#,
+		 board_table_theme_reply = #board_table_theme_reply#,
+		 board_table_title_cut = #board_table_title_cut#,
+		 board_table_reply_useyn = #board_table_reply_useyn#,
+		 board_table_secret_useyn = #board_table_secret_useyn#,
+		 board_table_comment_useyn = #board_table_comment_useyn#,
+		 board_table_theme_search = #board_table_theme_search#,
+		 board_table_search_useyn = #board_table_search_useyn#,
+		 board_table_default_content = #board_table_default_content#,
+		 board_table_seo_useyn = #board_table_seo_useyn#,
+		 board_table_show_columns = #board_table_show_columns#,
+		 board_group_index = #board_group_index#,
+		 board_table_user_email_useyn = #board_table_user_email_useyn#,
+		 board_table_user_phone_useyn = #board_table_user_phone_useyn#
+		WHERE
+			board_table_index = #board_table_index#
+	</update>
+	
+	<select id="getBoardTableList">
+		SELECT
+			board_table_index,
+			board_table_id,
+			board_table_nm,
+			board_table_desc,
+			board_table_theme,
+			board_table_write_role,
+			board_table_read_role,
+			IFNULL(board_table_list_cnt,0) board_table_list_cnt,
+			IFNULL(board_table_file_cnt,0) board_table_file_cnt,
+			board_table_theme_pagination,
+			board_table_file_max_size,
+			board_table_theme_reply,
+			board_table_title_cut,
+			board_table_reply_useyn,
+			board_table_secret_useyn,
+			board_table_comment_useyn,
+			board_table_theme_search,
+			board_table_search_useyn,
+			board_table_default_content,
+			board_table_seo_useyn,
+			board_table_show_columns,
+			sbg.board_group_id board_group_id,
+			sbg.board_group_index board_group_index,
+			sbg.board_group_nm board_group_nm,
+			board_table_user_email_useyn,
+			board_table_user_phone_useyn
+		FROM
+			sa_board_tables sbt,
+			sa_board_group sbg
+		WHERE
+			sbt.board_group_index = sbg.board_group_index
+	</select>
+	
+	<select id="getBoardTableDomain">
+		SELECT
+			board_table_index,
+			board_table_id,
+			board_table_nm,
+			board_table_desc,
+			board_table_theme,
+			board_table_write_role,
+			board_table_read_role,
+			IFNULL(board_table_list_cnt,0) board_table_list_cnt,
+			IFNULL(board_table_file_cnt,0) board_table_file_cnt,
+			board_table_theme_pagination,
+			board_table_file_max_size,
+			board_table_theme_reply,
+			board_table_title_cut,
+			board_table_reply_useyn,
+			board_table_secret_useyn,
+			board_table_comment_useyn,
+			board_table_theme_search,
+			board_table_search_useyn,
+			board_table_default_content,
+			board_table_seo_useyn,
+			board_table_show_columns,
+			sbg.board_group_id board_group_id,
+			sbg.board_group_index board_group_index,
+			sbg.board_group_nm board_group_nm,
+			board_table_user_email_useyn,
+			board_table_user_phone_useyn
+		FROM
+			sa_board_tables sbt,
+			sa_board_group sbg
+		WHERE 1=1
+			AND sbt.board_group_index = sbg.board_group_index
+			AND board_table_id=#board_table_id#
+		<isNotEmpty property="board_table_index"> 
+			AND board_table_id=#board_table_id#
+		</isNotEmpty> 
+	</select>
+	
+	<select id="getBoardTheme">
+		SELECT
+			board_table_theme
+		FROM
+			sa_board_tables
+		WHERE
+			board_table_id = #board_table_id#
+	</select>
+	
+	<delete id="deleteBoardTable">
+		DELETE
+		FROM
+			sa_board_tables
+		WHERE
+			board_table_index = #board_table_index#
+	</delete>
+	
+	<insert id="insertBoardGroup">
+		INSERT INTO sa_board_group (board_group_id, board_group_nm)
+		VALUES
+			(#board_group_id#, #board_group_nm#)
+	</insert>
+	
+	<update id="updateBoardGroup">
+		UPDATE sa_board_group
+		SET board_group_id = #board_group_id#,
+		 	board_group_nm = #board_group_nm#
+		WHERE
+			board_group_index = #board_group_index#
+	</update>
+	
+	<delete id="deleteBoardGroup">
+		DELETE FROM sa_board_group
+		WHERE
+			board_group_index = #board_group_index#
+	</delete>
+	
+	<select id="getBoardGroupList">
+		SELECT
+			board_group_index,
+			board_group_id,
+			board_group_nm
+		FROM
+			sa_board_group
+	</select>
+	
+	<select id="getBoardGroupByIndex">
+		SELECT
+			board_group_index,
+			board_group_id,
+			board_group_nm
+		FROM
+			sa_board_group
+		WHERE 
+			board_group_index = #board_group_index#
+	</select>
+</sqlMap>

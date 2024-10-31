@@ -1,0 +1,521 @@
+<?xml version="1.0" encoding="UTF-8" ?>    
+<!DOCTYPE sqlMap      
+	PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="saboard">
+	<insert id="insertBoardReply">
+		INSERT INTO sa_board_reply(
+			board_reply_id,
+			board_reply_depth,
+			board_reply_order,
+			board_reply_parent,
+			board_reply_grp,
+			board_reply_user_id,
+			board_reply_user_nm,
+			board_reply_user_ip,
+			board_reply_password,
+			board_reply_email,
+			board_reply_title,
+			board_reply_content,
+			board_reply_reg_date,
+			board_reply_use_yn
+		) 
+		VALUES
+			(
+				#board_index#,
+				#board_reply_depth#,
+				(SELECT
+					a.cnt
+				FROM
+					(
+						SELECT
+							count(*)cnt
+						FROM
+							sa_board_reply
+						WHERE
+							board_reply_id = #board_index#
+					) a ),
+				#board_reply_parent#,
+				#board_reply_grp#,
+				#board_reply_user_id#,
+				#board_reply_user_nm#,
+				#board_reply_user_ip#,
+				#board_reply_password#,
+				#board_reply_email#,
+				#board_reply_title#,
+				#board_reply_content#,
+				now(),
+				'Y'
+			)
+	</insert>
+	
+	<update id="updateBoardReply">
+		UPDATE sa_board_reply SET 
+			board_reply_user_nm = #board_reply_user_nm#,
+			board_reply_title = #board_reply_title#,
+			board_reply_content = #board_reply_content#,
+			board_reply_user_nm = #board_reply_user_nm#
+		WHERE 
+			board_reply_index = #board_reply_index#
+		AND board_reply_password = #board_reply_password# 
+	</update>
+	
+	<select id="getBoardReplyList">
+		SELECT
+			board_reply_index, 
+			board_reply_id,
+			board_reply_depth,
+			board_reply_order,
+			board_reply_parent,
+			board_reply_grp,
+			board_reply_user_id,
+			board_reply_user_nm,
+			board_reply_user_ip,
+			board_reply_password,
+			board_reply_email,
+			board_reply_title,
+			board_reply_content,
+			board_reply_reg_date,
+			board_reply_use_yn
+		FROM 
+			sa_board_reply
+		WHERE 
+			board_reply_id = #board_index#
+		ORDER BY board_reply_grp asc,board_reply_order asc
+	</select>
+	
+	<select id="getBoardReplyDomain">
+		SELECT
+			board_reply_index, 
+			board_reply_id,
+			board_reply_depth,
+			board_reply_order,
+			board_reply_parent,
+			board_reply_grp,
+			board_reply_user_id,
+			board_reply_user_nm,
+			board_reply_user_ip,
+			board_reply_password,
+			board_reply_email,
+			board_reply_title,
+			board_reply_content,
+			board_reply_reg_date,
+			board_reply_use_yn
+		FROM 
+			sa_board_reply
+		WHERE 
+			board_reply_index = #board_reply_index#
+	</select>
+	
+	<select id="getBoardReplyMaxGrp">
+		SELECT
+			MAX(board_reply_grp)+ 1 board_reply_grp
+		FROM
+			sa_board_reply
+	</select>
+	
+	<select id="getBoardReplyMaxGrpByBoardIndex">
+		SELECT
+			MAX(board_reply_grp) board_reply_grp
+		FROM
+			sa_board_reply
+		WHERE board_reply_id = #board_index#
+	</select>
+	
+	<select id="getBoardReplyTotalCount">
+		SELECT
+			count(*) board_reply_total_cnt
+		FROM
+			sa_board_reply
+		WHERE board_reply_id = #board_index#
+	</select>
+	
+	<select id="getBoardReplyPasswordCheck">
+		SELECT
+			count(*)
+		FROM
+			sa_board_reply
+		WHERE
+			board_reply_index    = #board_reply_index#
+		<isNotEmpty property="board_reply_password">
+			AND board_reply_password = #board_reply_password#
+		</isNotEmpty>
+		<isNotEmpty property="board_reply_user_id">
+			AND board_reply_user_id = #board_reply_user_id#
+		</isNotEmpty>
+	</select>
+	
+	<delete id="deleteBoardReplyDomain">
+		DELETE
+		FROM
+			sa_board_reply
+		WHERE
+			board_reply_index = #board_reply_index#
+	</delete>
+	
+	<update id="updateUseYnBoardReplyDomain">
+		UPDATE sa_board_reply
+		SET board_reply_use_yn = #board_reply_use_yn#
+		WHERE
+			board_reply_index = #board_reply_index#
+	</update>
+	
+	<insert id="insertBoard">
+		INSERT INTO sa_board(
+				board_id,
+				board_user_id,
+				board_password,
+				board_title,
+				board_content,
+				board_has_File,
+				board_reg_date,
+				board_reg_ip,
+				board_read_cnt,
+				board_user_nm,
+				board_expansion,
+				board_depth,
+				board_order,
+				board_parent,
+				board_grp,
+				board_secret,
+				board_attach_image,
+				board_user_email,
+				board_user_phone
+			)
+			VALUES
+				(
+					#board_id#,
+					#board_user_id#,
+					password(#board_password#),
+					#board_title#,
+					#board_content#,
+					#board_has_File#,
+					now(),
+					#board_reg_ip#,
+					0,
+					#board_user_nm#,
+					#board_expansion#,
+					#board_depth#,
+					#board_order#,
+					#board_parent#,
+					#board_grp#,
+					#board_secret#,
+					#board_attach_image#,
+					#board_user_email#,
+					#board_user_phone#
+				)
+		<selectKey keyProperty="board_index">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+	
+	<update id="updateBoard" >
+		UPDATE sa_board
+			SET  board_title   = #board_title#
+				,board_content = #board_content#
+				,board_user_id = #board_user_id#
+				,board_reg_ip  = #board_reg_ip#
+				,board_user_nm = #board_user_nm#
+				,board_expansion = #board_expansion#
+				,board_depth  = #board_depth#
+				,board_order  = #board_order#
+				,board_parent = #board_parent#
+				,board_grp = #board_grp#
+				,board_secret = #board_secret#
+				,board_attach_image = #board_attach_image#
+				,board_user_email = #board_user_email#
+				,board_user_phone = #board_user_phone#
+			WHERE board_index  = #board_index#
+	</update>
+	
+	<update id="updateBoardOrder">
+		UPDATE sa_board SET 
+			board_order = board_order + 1 
+		WHERE
+			board_grp = #board_grp#
+		AND board_order > #board_order#
+	</update>
+	
+	<update id="updateBoardReadCnt">
+		UPDATE sa_board
+			SET board_read_cnt = board_read_cnt+1
+			WHERE board_index  = #board_index#
+	</update>
+	
+	<select id="getBoardDomain" >
+		SELECT
+			board_index,
+			board_id,
+			board_user_id,
+			board_password,
+			board_title,
+			board_content,
+			board_has_File,
+			board_reg_date,
+			board_reg_ip,
+			board_read_cnt,
+			board_user_nm,
+			board_expansion,
+			board_depth,
+			board_order,
+			board_parent,
+			board_grp,
+			board_secret,
+			board_attach_image,
+			board_user_email,
+			board_user_phone
+		FROM
+			sa_board
+		WHERE 
+			1=1
+		AND board_index = #board_index#
+	</select>
+	
+	<select id="getBoardDomainAttachmentImage" >
+		SELECT
+			board_index,
+			board_id,
+			board_user_id,
+			board_password,
+			board_title,
+			board_content,
+			board_has_File,
+			board_reg_date,
+			board_reg_ip,
+			board_read_cnt,
+			board_user_nm,
+			board_expansion,
+			board_depth,
+			board_order,
+			board_parent,
+			board_grp,
+			board_secret,
+			board_attach_image,
+			board_user_email,
+			board_user_phone
+		FROM
+			sa_board
+		WHERE 
+			1=1
+		AND board_attach_image LIKE CONCAT('%', #attach_name#, '%')
+		LIMIT 1
+	</select>
+	
+	<delete id="deleteBoard" >
+		DELETE FROM sa_board WHERE board_index=#board_index#
+	</delete>
+	
+	<select id="getBoardMaxGrp">
+		SELECT 
+			MAX(board_grp) 
+		FROM 
+			sa_board
+		WHERE 1=1
+			AND board_id=#board_id#
+	</select>
+	
+	<select id="getBoardMaxOrder" >
+		SELECT 
+			MAX(board_order) 
+		FROM 
+			sa_board
+	</select>
+	
+	<select id="getAllBoardCount" >
+		SELECT 
+			COUNT(*) 
+		FROM 
+			sa_board
+		WHERE 1=1
+			AND board_id=#board_id#
+		<isNotEmpty property="board_title">
+			AND board_title LIKE CONCAT('%',#board_title#,'%')
+		</isNotEmpty>
+		<isNotEmpty property="board_user_nm">
+			AND board_user_nm LIKE CONCAT('%',#board_user_nm#,'%')
+		</isNotEmpty>
+		<isNotEmpty property="board_content">
+			AND board_user_nm LIKE CONCAT('%',#board_content#,'%')
+		</isNotEmpty>
+	</select>
+	
+	<select id="getAllBoardList" >
+			SELECT
+				A.*
+			FROM
+				(
+					SELECT
+						(
+							SELECT
+								(@ROWNUM := @ROWNUM + 1) AS ROWNUM
+							FROM
+								(SELECT @ROWNUM := 0) R
+						) rnum,
+						SB.*
+					FROM
+						(
+							SELECT
+								board_index,
+								board_id,
+								board_user_id,
+								board_title,
+								board_content,
+								board_reg_date,
+								board_has_File,
+								board_read_cnt,
+								board_reg_ip,
+								board_user_nm,
+								(
+									SELECT
+										count(*)
+									FROM
+										sa_board_reply
+									WHERE
+										board_reply_id = sa_board.board_index
+								) board_reply_cnt,
+								(
+									SELECT
+										count(*)
+									FROM
+										sa_board_file
+									WHERE
+										board_file_index = sa_board.board_index
+								) board_file_cnt,
+								board_expansion,
+								board_depth, 
+								board_order,
+								board_parent,
+								board_grp,
+								board_secret,
+								board_attach_image,
+								board_user_email,
+								board_user_phone
+							FROM
+								sa_board
+							WHERE 1=1
+							AND board_id=#board_id#
+							<isNotEmpty property="board_title">
+								AND board_title LIKE CONCAT('%',#board_title#,'%')
+							</isNotEmpty>
+							<isNotEmpty property="board_user_nm">
+								AND board_user_nm LIKE CONCAT('%',#board_user_nm#,'%')
+							</isNotEmpty>
+							<isNotEmpty property="board_content">
+								AND board_content LIKE CONCAT('%',#board_content#,'%')
+							</isNotEmpty>
+						)SB
+					WHERE
+						1 = 1
+					ORDER BY
+						board_grp desc,board_order asc
+				)A
+			LIMIT $start_record$,$page_per_record$
+	</select>
+	
+	<select id="getBoardDomainByRnum">
+		SELECT
+			a.*
+		FROM
+			(
+				SELECT
+					(
+						SELECT
+							@ROWNUM := @ROWNUM + 1 AS ROWNUM
+						FROM
+							(SELECT @ROWNUM := 0)R
+					)rnum,
+					board.*
+				FROM
+					sa_board board
+				WHERE 1=1
+				AND board_id=#board_id#
+				ORDER BY
+					board_grp DESC,
+					board_order ASC
+			)a
+		WHERE
+			1=1
+			<isNotEmpty property="board_index">
+				AND a.board_index = #board_index#
+			</isNotEmpty>
+			<isNotEmpty property="rnum">
+				AND a.rnum = #rnum#
+			</isNotEmpty>
+	</select>
+	
+	<insert id="insertBoardFile" >
+		INSERT INTO sa_board_file(
+			board_file_id,
+			board_file_name,
+			board_file_size,
+			board_file_reg_date,
+			board_file_oriname,
+			board_file_seq
+		)
+		VALUES
+			(
+				#board_file_id#,
+				#board_file_name#,
+				#board_file_size#,
+				NOW(),
+				#board_file_oriname#,
+				#board_file_seq#
+			)
+		<selectKey keyProperty="board_file_index">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+	
+	<update id="updateBoardFile" >
+		UPDATE sa_board_file
+		SET board_file_name = #board_file_name#,
+		 board_file_size = #board_file_size#,
+		 board_file_oriname = #board_file_oriname#
+		WHERE
+			board_file_id = #board_file_id#
+		AND board_file_seq = #board_file_seq#
+	</update>
+	
+	<select id="getBoardFileList" >
+		SELECT
+			board_file_index,
+			board_file_id,
+			board_file_name,
+			board_file_size,
+			board_file_reg_date,
+			board_file_oriname,
+			board_file_seq
+		FROM
+			sa_board_file
+		WHERE
+			board_file_id = #board_index#
+	</select>
+	
+	<select id="getBoardFileDomain" >
+		SELECT
+			board_file_index,
+			board_file_id,
+			board_file_name,
+			board_file_size,
+			board_file_reg_date,
+			board_file_oriname,
+			board_file_seq
+		FROM
+			sa_board_file
+		WHERE
+			1=1
+		AND	board_file_id = #board_file_id#
+		AND board_file_seq = #board_file_seq#
+	</select>
+	
+	<delete id="deleteBoardFile" >
+		DELETE
+		FROM
+			sa_board_file
+		WHERE
+			1 = 1
+		AND board_file_id = #board_file_id#
+		AND board_file_seq = #board_file_seq#
+	</delete>	
+</sqlMap>
